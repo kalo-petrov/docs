@@ -1,0 +1,65 @@
+---
+title: Write to Google Sheets Step
+description: Write variable data from your automation into a specified Google Sheet tab.
+---
+
+## What it does
+
+The **Write to Google Sheets** step writes data from your automation's variable set into a Google Sheet. You specify the spreadsheet, the tab (sheet), and which variables map to which columns. On each run, the data is appended as a new row or written to a specific range.
+
+---
+
+## When to use it
+
+- Keeping a running log of weekly affiliate revenue in a shared spreadsheet
+- Building a historical record of invoice numbers and amounts
+- Sharing automation outputs with stakeholders who prefer working in Google Sheets
+- Feeding data into a spreadsheet that triggers further Google Sheets automations
+
+---
+
+## Prerequisites
+
+You need a **Google Drive connection** set up in your account before using this step. Go to **Providers → Gmail & Drive** to connect your Google account.
+
+---
+
+## Configuration
+
+### Spreadsheet
+
+Enter the Google Sheet URL or Spreadsheet ID. AffZero will access the spreadsheet using your connected Google account.
+
+### Sheet (Tab) Name
+
+Enter the exact name of the tab within the spreadsheet where data should be written (e.g. `Sheet1`, `Weekly Stats`, `Affiliate Log`). The tab must already exist — AffZero does not create new tabs automatically.
+
+### Column Mapping
+
+For each column in the spreadsheet, specify which variable's value should be written. For example:
+
+| Column | Variable |
+|---|---|
+| A | `{affiliate_name_1_stats_1}` |
+| B | `{revenue_1_stats_1}` |
+| C | `{payout_1_stats_1}` |
+| D | `{invoice_number}` |
+
+You can also write static text (e.g. a date label or category) alongside variables.
+
+### Append vs. Overwrite
+
+- **Append** — adds a new row at the bottom of existing data on each run (recommended for logs and history)
+- **Overwrite** — writes to a specific cell range, replacing whatever is there
+
+---
+
+## Tips
+
+- Set up a header row manually in your spreadsheet before using this step — AffZero writes data rows, not headers
+- For weekly or monthly automations, **Append** mode builds a useful historical log over time
+- If you have multiple Pull Stats rows, you'll need one Write to Google Sheets step per row, or use an AI Analyze step to consolidate the data into single summary variables first
+
+<Note>
+  The Google account connected in Providers must have **edit access** to the target spreadsheet. If AffZero can't write to the sheet, check the sharing settings on the spreadsheet.
+</Note>

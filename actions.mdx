@@ -1,0 +1,78 @@
+---
+title: Actions
+description: Configure reusable tracker API endpoint templates for use in Tracker Action automation steps.
+---
+
+## What are Actions?
+
+**Actions** are pre-configured tracker API endpoint definitions that power the [Tracker Action Get, Edit, and Add steps](/automations/steps/tracker-actions) in the automation builder. Each action template defines:
+
+- Which tracker connection it belongs to
+- The API endpoint path and HTTP method (GET, POST, PUT, PATCH)
+- The parameters or request body it accepts
+- What the response looks like
+
+You configure action templates once here and then reuse them across multiple automations.
+
+---
+
+## Who Should Use Actions?
+
+Actions are designed for users who want to go beyond standard stats-pulling and interact with their tracker's API more directly — reading specific records, updating settings, or creating new entries.
+
+If you just need to pull stats and send emails, you don't need to configure any actions.
+
+---
+
+## Creating an Action Template
+
+1. Go to **Actions** in the left sidebar
+2. Click **Add Action Template**
+3. Select the **connection** (tracker) this action will use
+4. Enter the **endpoint path** (e.g. `/3.0/affiliate/{affiliate_id}` for Affise)
+5. Select the **HTTP method** (GET, POST, PUT, PATCH, DELETE)
+6. Define any **parameters** the endpoint accepts and their types
+7. Optionally provide a **test request** to verify the endpoint works
+8. Save the template
+
+Once saved, the template appears as a selectable option inside Tracker Action steps in the automation builder.
+
+---
+
+## Action Types and Use Cases
+
+### GET Actions (Tracker Action Get)
+
+Used to read data not available through standard stat types. Examples:
+
+- Get a specific affiliate's details by ID
+- Fetch the current settings for a specific offer
+- Read conversion records for approval
+
+### POST / PUT Actions (Tracker Action Edit, Tracker Action Add)
+
+Used to write data back to your tracker. Examples:
+
+- Update an affiliate's payout cap
+- Change an offer's status to active or paused
+- Create a new postback URL for an affiliate
+
+---
+
+## Using Tracker API Documentation
+
+To create action templates, you need to know your tracker's API endpoints. Consult your platform's API documentation:
+
+- **Affise**: Available in your Affise admin panel under Settings → API Documentation, or at your Affise account manager
+- **Binom**: Available in Binom's own settings panel under API
+- **CAKE**: Available in CAKE's affiliate portal documentation
+
+<Tip>
+  Start with read-only GET actions before building any write actions (Edit or Add). This lets you verify the endpoint and response format without risk of accidentally modifying data.
+</Tip>
+
+---
+
+## Testing an Action Template
+
+After creating a template, use the **Test** button to make a real API call. The response is displayed so you can verify the endpoint returns what you expect and understand the field structure before building an automation around it.
