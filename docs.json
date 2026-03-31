@@ -1,122 +1,110 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "AffZero",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#1CABBC",
+    "light": "#4DCFDB",
+    "dark": "#0E8F9E"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/favicon.png",
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "Documentation",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Get Started",
             "pages": [
-              "index",
-              "quickstart",
-              "development"
+              "introduction",
+              "getting-started/quick-start",
+              "getting-started/account-and-plans"
             ]
           },
           {
-            "group": "Customization",
+            "group": "Connections",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
+              "connections/overview",
+              "connections/affise",
+              "connections/binom",
+              "connections/cake",
+              "connections/everflow",
+              "connections/demo"
             ]
           },
           {
-            "group": "Writing content",
+            "group": "Stats",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
+              "stats/overview",
+              "stats/date-presets",
+              "stats/downloading-csv"
             ]
           },
           {
-            "group": "AI tools",
+            "group": "Automations",
             "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "API reference",
-        "groups": [
-          {
-            "group": "API documentation",
-            "pages": [
-              "api-reference/introduction"
+              "automations/overview",
+              "automations/building-your-first-automation",
+              "automations/scheduling",
+              "automations/variables",
+              {
+                "group": "Steps",
+                "pages": [
+                  "automations/steps/pull-stats",
+                  "automations/steps/condition-check",
+                  "automations/steps/filter-data",
+                  "automations/steps/ai-analyze",
+                  "automations/steps/generate-invoice-number",
+                  "automations/steps/create-invoice",
+                  "automations/steps/send-email",
+                  "automations/steps/send-for-approval",
+                  "automations/steps/write-to-google-sheets",
+                  "automations/steps/tracker-actions"
+                ]
+              }
             ]
           },
           {
-            "group": "Endpoint examples",
+            "group": "Email",
+            "pages": ["email/email-services", "email/email-templates"]
+          },
+          {
+            "group": "Invoices",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "invoices/overview",
+              "invoices/html-templates",
+              "invoices/google-doc-templates"
             ]
+          },
+          {
+            "group": "Reference",
+            "pages": ["runs-logs", "actions", "plans-and-limits", "faq"]
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/logo/light.png",
+    "dark": "/logo/dark.png"
   },
   "navbar": {
     "links": [
       {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "label": "Go to App",
+        "href": "https://app.affzero.com"
       }
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "label": "Get Started Free",
+      "href": "https://app.affzero.com/signup"
     }
   },
   "contextual": {
-    "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
+    "options": ["copy", "view", "chatgpt", "claude", "perplexity", "mcp", "cursor", "vscode"]
   },
   "footer": {
-    "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
-    }
+    "socials": {}
   }
 }
