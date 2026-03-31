@@ -44,7 +44,7 @@ Single source of truth for all pending and planned work.
 - **Transform step**: Data manipulation before email
 - **Invoice step**: Generate and send invoices
 - **Conditional branching**: If/else logic in workflows
-- **Google Sheets step**: Write data to user's spreadsheet
+- ~~**Google Sheets step**: Write data to user's spreadsheet~~ ✅ Implemented with three write modes: Replace (in-place placeholder replacement), Append (template row preservation + below-data strategy), and Match & Fill (row matching by criteria + targeted cell writes). See `docs/automations/steps/write-to-google-sheets.mdx`.
 
 ## Email Enhancements
 
