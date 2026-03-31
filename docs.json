@@ -28,7 +28,6 @@
               "connections/affise",
               "connections/binom",
               "connections/cake",
-              "connections/everflow",
               "connections/demo"
             ]
           },
@@ -65,8 +64,12 @@
             ]
           },
           {
-            "group": "Email",
-            "pages": ["email/email-services", "email/email-templates"]
+            "group": "Providers",
+            "pages": [
+              "providers/gmail-drive",
+              "email/email-services",
+              "email/email-templates"
+            ]
           },
           {
             "group": "Invoices",
