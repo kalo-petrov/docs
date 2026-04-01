@@ -179,13 +179,31 @@ This mode is ideal when:
 - Revenue ← `{revenue_1}`
 - Clicks ← `{clicks_1}`
 
-**Result:** AffZero finds the row where Affiliate is "Acme Corp" AND Month is "March 2026", and fills in Revenue and Clicks. The rest of the sheet is untouched. The next run of this automation (April 1st) would find and fill the April 2026 row.
+**Result:** AffZero scans top to bottom. It skips January and February (Revenue and Clicks already have values), then finds the March 2026 row where Revenue and Clicks are empty and fills them in. The April row and everything else is untouched.
+
+The next run of this automation (April 1st) would repeat the same process — skipping January, February, and now March (already filled), then filling the April row.
+
+**Alternative — match by advertiser name only:** If your match condition is just `Affiliate = {affiliate_name_1}` (without Month), the same scan logic applies. AffZero skips all Acme Corp rows that already have data and fills the first one it finds with empty Revenue/Clicks columns. This is useful when you want the sheet layout to control the order rather than specifying the month explicitly in the automation.
 
 ### Notes on matching
 
+#### How matching works across multiple rows
+
+When AffZero scans the sheet it reads through every row from top to bottom:
+
+1. If a row satisfies **all** match conditions and the fill columns are **empty** → fill that row and stop.
+2. If a row satisfies all match conditions but the fill columns **already have values** → skip it and keep scanning for the next matching row.
+3. If the scan reaches the end of the sheet with no fillable match found, the **"If no matching row"** action applies:
+   - **Skip** / **Stop with error** — behave as configured.
+   - **Append new row** — only fires when **no row matching the conditions was found at all**. If matching rows exist but are already populated, AffZero does not append — it warns instead and leaves the sheet as-is.
+
+This design lets you pre-fill a table for an entire year (all rows present, fill columns empty) and run the same automation every month. Each run finds the first open slot for that affiliate/advertiser and fills it in, naturally working its way down the table without duplicating rows.
+
+**Additional notes:**
 - Matching is **case-insensitive** and trims surrounding whitespace.
 - If there are **multiple rows** that match all conditions, only the **first** one is filled.
-- Variable values in match conditions are resolved at run time — so `{date_month} {date_year}` becomes `"March 2026"` when the automation runs in March.
+- Variable values in match conditions are resolved at run time — so `{date_month_year}` becomes `"March 2026"` when the automation runs in March.
+- The **"Overwrite existing values"** toggle (in the step settings) disables the empty-cell check. With it enabled, the step always fills the **first** matching row regardless of whether it already has data — useful for updating a row in place rather than filling the next open slot.
 
 ---
 
@@ -212,7 +230,11 @@ The left panel of the step editor shows all variables available from previous Pu
 Use **Append (template row)**. Place your variable placeholders in one row in your sheet. Each day, a new row of data will appear above the template row, building a growing log automatically.
 
 **I have a monthly table pre-built for the whole year. How do I fill it in each month?**
-Use **Match & Fill**. Set the match conditions to identify the current month's row (e.g. Affiliate = your affiliate name AND Month = `{date_month_year}`). Set the fill mappings to the columns you want to populate. Each month's automation run will find and fill the correct row.
+Use **Match & Fill**. You have two approaches:
+- **Match by advertiser name only** (e.g. Affiliate = `{affiliate_name_1}`): AffZero scans all rows for that advertiser, skips any that already have data in the fill columns, and fills the first empty one. This lets your sheet's row order drive which month gets filled next — no need to specify the month in the automation.
+- **Match by advertiser + month** (e.g. Affiliate = `{affiliate_name_1}` AND Month = `{date_month_year}`): AffZero targets that exact row. Useful when month values are already pre-filled in your sheet and you want precise targeting.
+
+Set **"If no matching row"** to **Skip** if all rows for that advertiser are already filled — the automation will continue without error.
 
 **Can multiple automations write to the same sheet?**
 Yes, with **Match & Fill** mode. Each automation can have different match conditions (e.g. one for each affiliate or campaign), and they will find and fill their own rows without interfering with each other.
