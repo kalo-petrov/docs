@@ -1,26 +1,76 @@
 ---
 title: Actions
-description: Configure reusable tracker API endpoint templates for use in Tracker Action automation steps.
+description: Configure reusable tracker API endpoint templates and run bulk operations directly from the Actions page.
 ---
 
 ## What are Actions?
 
-**Actions** are pre-configured tracker API endpoint definitions that power the [Tracker Action Get, Edit, and Add steps](/automations/steps/tracker-actions) in the automation builder. Each action template defines:
+The **Actions** page has two main purposes:
+
+1. **API Action Templates** — pre-configured tracker API endpoint definitions that power the [Tracker Action steps](/automations/steps/tracker-actions) in the automation builder.
+2. **Built-in Composite Actions** — purpose-built tools for common operations that go beyond a single API call, like the **Bulk Offer Upload** for Affise.
+
+---
+
+## Bulk Offer Upload (Affise)
+
+The Bulk Offer Upload tool lets you create multiple Affise offers at once from a single text or CSV input — no manual clicking through the Affise UI.
+
+### How it works
+
+1. **Select your Affise connection** from the connection dropdown (admin connection required).
+2. **Load a model offer** — enter an existing offer ID to use as a template. The tool fetches all of its settings and displays them in collapsible sections (General, Targeting, Tracking, Payouts, Caps, etc.).
+3. **Paste your offer data** — paste freeform text or a CSV table describing your new offers. The AI parser extracts offer rows and maps fields automatically (title, URL, preview URL, and any other overrides you describe).
+4. **Review the parsed table** — each offer row is editable before creation. You can also set global overrides that apply to all offers.
+5. **Configure output options** — optionally enable affiliates by PID and generate tracking links. Choose which data to include in the results (preview URL, payout, caps).
+6. **Create offers** — the tool creates each offer sequentially, copies payout rules from the model, enables the specified affiliates, and generates tracking links.
+
+### Results
+
+For each created offer you get:
+
+| Field | Description |
+|---|---|
+| **Tracking URL** | Per-affiliate tracking link (generated via API, or constructed from the tracking domain as a fallback) |
+| **Preview** | The offer preview/landing page URL |
+| **Payout** | Affiliate payout per goal (e.g. `$3.50 (Goal: Default)`) |
+| **Caps** | Cap rules summary (e.g. `200/day · Conversions`) |
+
+### What gets copied from the model offer
+
+- All scalar settings (title, URL, redirect type, privacy, tracking domain, etc.)
+- Payout rules (general payments — personal/partner payouts are not transferred)
+- Edit-only settings applied in a follow-up call: `is_cpi`, `hide_payments`, `allow_impressions`, `enabled_commission_tiers`, etc.
+
+### What must be configured manually in Affise after creation
+
+- **Cap rules** — the Affise API does not accept cap rules on offer creation. Set them in Affise under the offer's Caps tab.
+- **Partner / personal payouts** — these are affiliate-specific and cannot be transferred via the API.
+- **Commission tiers** — applied via edit call but may need manual review in complex setups.
+
+<Note>
+  Offers are created sequentially (one at a time) to avoid rate limiting. For large batches, the request may take a minute or more.
+</Note>
+
+---
+
+## API Action Templates
+
+Action templates power the [Tracker Action Get, Edit, and Add steps](/automations/steps/tracker-actions) in the automation builder. Each template defines:
 
 - Which tracker connection it belongs to
 - The API endpoint path and HTTP method (GET, POST, PUT, PATCH)
 - The parameters or request body it accepts
-- What the response looks like
 
-You configure action templates once here and then reuse them across multiple automations.
+You configure templates once and reuse them across multiple automations.
 
 ---
 
-## Who Should Use Actions?
+## Who Should Use Action Templates?
 
-Actions are designed for users who want to go beyond standard stats-pulling and interact with their tracker's API more directly — reading specific records, updating settings, or creating new entries.
+Templates are for users who want to go beyond standard stats-pulling and interact with their tracker's API directly — reading specific records, updating settings, or creating new entries.
 
-If you just need to pull stats and send emails, you don't need to configure any actions.
+If you just need to pull stats and send emails, you don't need to configure any action templates.
 
 ---
 
